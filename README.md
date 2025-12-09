@@ -21,10 +21,6 @@ A simple implementation for .NET that provides request/handler pattern capabilit
 - No pipeline behaviors
 - No streaming
 
-## Usage
-```csharp
-decimal fee = PricingCalculator.CalculateAnnualFee(1_500_000m); // 18
-
 ## Installation
 
 Install the nuget package via the .NET CLI:
