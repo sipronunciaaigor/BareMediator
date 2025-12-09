@@ -13,6 +13,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install GitVersion tool
+        run: dotnet tool install --global GitVersion.Tool
+
       - name: Determine version (GitVersion)
         uses: gittools/actions/gitversion/execute@v0.9.14
         id: gitversion
