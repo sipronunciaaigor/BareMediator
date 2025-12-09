@@ -1,0 +1,20 @@
+name-template: 'v$NEXT_PATCH'  # default: minor/patch depends on labels
+tag-template: 'v$NEXT_PATCH'
+categories:
+  - title: "Features"
+    labels:
+      - enhancement
+      - feat
+  - title: "Fixes"
+    labels:
+      - bug
+      - fix
+  - title: "Chores"
+    labels:
+      - chore
+      - refactor
+      - docs
+change-template: '- $TITLE (#$NUMBER) by @$AUTHOR'
+template: |
+  ## What's changed
+  $CHANGES

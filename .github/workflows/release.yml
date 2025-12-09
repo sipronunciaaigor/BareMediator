@@ -1,0 +1,41 @@
+name: Release on tag
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Determine version (GitVersion)
+        uses: gittools/actions/gitversion/execute@v0.9.14
+        id: gitversion
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Build and pack
+        run: |
+          dotnet build -c Release
+          dotnet pack src/BareMediator/BareMediator.csproj -c Release /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} -o ./artifacts
+
+      - name: Create GitHub release and upload packages
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ github.ref }}
+          files: ./artifacts/*.nupkg
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to NuGet (optional)
+        if: ${{ secrets.NUGET_API_KEY != '' }}
+        run: |
+          dotnet nuget push ./artifacts/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
