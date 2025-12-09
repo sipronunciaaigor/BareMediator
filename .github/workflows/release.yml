@@ -5,6 +5,10 @@ on:
     tags:
       - 'v*.*.*'
 
+permissions:
+  contents: write
+  packages: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -12,6 +16,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install GitVersion tool
         run: dotnet tool install --global GitVersion.Tool
@@ -28,12 +34,17 @@ jobs:
       - name: Build and pack
         run: |
           dotnet build -c Release
-          dotnet pack src/BareMediator/BareMediator.csproj -c Release /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} -o ./artifacts
+          dotnet pack src/BareMediator.csproj -c Release /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} -o ./artifacts
 
       - name: Create GitHub release and upload packages
         uses: ncipollo/release-action@v1
         with:
-          tag: ${{ github.ref }}
+          tag: ${{ github.ref_name }}
+          name: Release ${{ steps.gitversion.outputs.semVer }}
+          body: |
+            Release version ${{ steps.gitversion.outputs.semVer }}
+            
+            See the [CHANGELOG](https://github.com/sipronunciaaigor/BareMediator/blob/master/CHANGELOG.md) for details.
           files: ./artifacts/*.nupkg
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -6,8 +6,8 @@ on:
       - master
 
 permissions:
-  contents: read
-  pull-requests: write
+contents: write
+pull-requests: write
 
 jobs:
   update_release_draft:
