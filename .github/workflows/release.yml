@@ -16,15 +16,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Install GitVersion tool
-        run: dotnet tool install --global GitVersion.Tool
-
-      - name: Determine version (GitVersion)
-        uses: gittools/actions/gitversion/execute@v0.9.14
-        id: gitversion
+      - name: Extract version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
@@ -34,15 +29,15 @@ jobs:
       - name: Build and pack
         run: |
           dotnet build -c Release
-          dotnet pack src/BareMediator.csproj -c Release /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} -o ./artifacts
+          dotnet pack src/BareMediator.csproj -c Release /p:PackageVersion=${{ steps.version.outputs.VERSION }} -o ./artifacts
 
       - name: Create GitHub release and upload packages
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ github.ref_name }}
-          name: Release ${{ steps.gitversion.outputs.semVer }}
+          name: Release ${{ steps.version.outputs.VERSION }}
           body: |
-            Release version ${{ steps.gitversion.outputs.semVer }}
+            Release version ${{ steps.version.outputs.VERSION }}
             
             See the [CHANGELOG](https://github.com/sipronunciaaigor/BareMediator/blob/master/CHANGELOG.md) for details.
           files: ./artifacts/*.nupkg
