@@ -1,17 +1,8 @@
-mode: Mainline
+mode: ContinuousDeployment
 branches:
   master:
-    regex: ^master$
-    label: ''
-    increment: Patch
-    is-release-branch: true
+    tag: ''
   develop:
-    regex: ^dev(elop)?(ment)?$
-    label: 'alpha'
-    increment: Minor
+    tag: 'alpha'
   feature:
-    regex: ^features?[/-]
-    label: 'feature'
-    increment: Minor
-ignore:
-  sha: []
+    tag: 'useBranchName'
