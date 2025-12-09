@@ -2,7 +2,7 @@ mode: Mainline
 branches:
   master:
     regex: ^master$
-    tag: ''
+    label: ''
     increment: Patch
     prevent-increment-of-merged-branch-version: true
     track-merge-target: false
@@ -10,7 +10,7 @@ branches:
     is-release-branch: true
   develop:
     regex: ^dev(elop)?(ment)?$
-    tag: 'alpha'
+    label: 'alpha'
     increment: Minor
     prevent-increment-of-merged-branch-version: false
     track-merge-target: true
@@ -18,7 +18,7 @@ branches:
     is-release-branch: false
   feature:
     regex: ^features?[/-]
-    tag: 'feature'
+    label: 'feature'
     increment: Minor
     prevent-increment-of-merged-branch-version: false
     track-merge-target: false
