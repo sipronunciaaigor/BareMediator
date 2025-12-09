@@ -1,5 +1,28 @@
 ﻿# BareMediator
 
+<p align="center">
+  <img src="icon.png" alt="BareMediator Logo" width="128" height="128" />
+</p>
+
+<a href="https://github.com/sipronunciaaigor/BareMediator/actions/workflows/ci.yml">
+  <img src="https://github.com/sipronunciaaigor/BareMediator/actions/workflows/ci.yml/badge.svg" alt="CI Status" />
+</a>
+  <a href="https://codecov.io/gh/sipronunciaaigor/BareMediator">
+<img src="https://codecov.io/gh/sipronunciaaigor/BareMediator/branch/master/graph/badge.svg" alt="Code Coverage" />
+</a>
+<a href="https://www.nuget.org/packages/BareMediator">
+  <img src="https://img.shields.io/nuget/v/BareMediator.svg" alt="NuGet Version" />
+</a>
+<a href="https://www.nuget.org/packages/BareMediator">
+  <img src="https://img.shields.io/nuget/dt/BareMediator.svg" alt="NuGet Downloads" />
+</a>
+<a href="LICENSE.md">
+  <img src="https://img.shields.io/badge/license-Functional%20Source-blue.svg" alt="License" />
+</a>
+<a href="https://github.com/sipronunciaaigor/BareMediator/releases">
+  <img src="https://img.shields.io/github/release/sipronunciaaigor/BareMediator.svg" alt="GitHub Release" />
+</a>
+
 A super lightweight mediator pattern library with no frills. 🐻
 
 A simple implementation for .NET that provides request/handler pattern capabilities without the overhead of a full-featured library.
