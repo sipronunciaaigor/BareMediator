@@ -167,22 +167,30 @@ BareMediator provides just the essentials:
 
 ## Migration from MediatR
 
-Everywhere simply replace:
+In your `Program.cs` replace:
 ```csharp
 // Before
 using MediatR;
 
 // After
-using BareMediator;
-```
+using BareMediator.Abstracions;
 
-In your `Program.cs` replace also:
-```csharp
+// Your code here
+
 // Before
 services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
 
 // After
 services.AddMediator<Program>();
+```
+
+Everywhere else simply replace:
+```csharp
+// Before
+using MediatR;
+
+// After
+using BareMediator.Abstracions;
 ```
 
 All your existing `IRequest<T>`, `IRequestHandler<TRequest, TResponse>`, and `IMediator` code will work as-is!
